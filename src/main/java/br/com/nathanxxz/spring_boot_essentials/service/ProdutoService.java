@@ -2,6 +2,7 @@ package br.com.nathanxxz.spring_boot_essentials.service;
 
 import br.com.nathanxxz.spring_boot_essentials.database.model.ProdutoEntity;
 import br.com.nathanxxz.spring_boot_essentials.dto.ProdutoDto;
+import br.com.nathanxxz.spring_boot_essentials.exception.NotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -42,7 +43,7 @@ public class ProdutoService {
         ProdutoEntity produto = PRODUTOS.stream()
                 .filter(produtoEntity -> produtoEntity.getId().equals(id))
                 .findAny()
-                .orElseThrow(() -> new RuntimeException("Produto nao encontrado"));
+                .orElseThrow(() -> new NotFoundException("Produto nao encontrado"));
         produto.setNome(produtoDto.getNome());
         produto.setPreco(produtoDto.getPreco());
         produto.setQuantidade(produtoDto.getQuantidade());
